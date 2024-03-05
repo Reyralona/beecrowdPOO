@@ -1,39 +1,50 @@
-import java.io.IOException;
-import java.util.Scanner; 
- 
+import java.util.Scanner;
+import java.util.ArrayList;
+
 public class Main {
-    
-    public static int largest(String[] arr) { 
-        int max = arr[0].length();
-        for (int i = 1; i < arr.length; i++) 
-            if (arr[i].length() > max) 
-                max = arr[i].length(); 
-        return max; 
-    } 
-    
-    public static String strip(String input){
-        return input.trim().replaceAll(" +", " ");
-    }
- 
-    public static void main(String[] args) throws IOException {
- 
-        Scanner scn = new Scanner(System.in);
-        int n = scn.nextInt() + 1;
-        String[] buff = new String[n];
-        
-        for(int i = 0; i < n; i++){
-            String str = strip(scn.nextLine());
-            buff[i] = strip(str);
+    public static void main (String[] args) {
+        Scanner sc = new Scanner (System.in);
+        ArrayList<ArrayList<String>> paragraph = new ArrayList<ArrayList<String>>();
+
+        int n = sc.nextInt();
+        int skipline = 0;
+
+        while (n != 0) {
+            ArrayList<String> phrases = new ArrayList<String>();
+            sc.nextLine(); 
+            int string_max = 0;
+
+            for (int i = 0; i < n; i++) {
+                phrases.add(sc.nextLine().trim().replaceAll(" +", " "));
+                if (phrases.get(i).length() > string_max) {
+                    string_max = phrases.get(i).length();
+                }
+            }
+
+            for (int i = 0; i < n; i++) {
+                while(phrases.get(i).length() < string_max) { 
+                    phrases.set(i, " " + phrases.get(i));
+                }
+            }
+            phrases.set(phrases.size() - 1, phrases.get(phrases.size() - 1)); 
+            paragraph.add(phrases);
+            n = sc.nextInt(); 
+            skipline++;
         }
         
-        for(int i = 0; i < n; i++){
-            int max = largest(buff);
-            String out = String.format("%" + (max) + "s", buff[i]); 
-            if(out != "")
-                System.out.println(out);
+        int i = 0;
+        for (ArrayList<String> lista : paragraph){
+            for (String elemento : lista){
+                prln(elemento);
+            }
+            if (i != skipline - 1) {
+                prln("");
+            }
+            i++;
         }
-        
- 
     }
- 
+    
+    public static void prln(Object o) {
+        System.out.println(o);
+    }
 }
