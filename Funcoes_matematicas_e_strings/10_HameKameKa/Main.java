@@ -3,26 +3,26 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Scanner scn = new Scanner(System.in);
 
-        int casos = scanner.nextInt();
+        int cases = scn.nextInt();
 
-        while (casos-- > 0) {
-            String palavra = scanner.next();
+        while (cases-- > 0) {
+            String word = scn.next();
 
             // Check if the input string is the base string "hamekame"
-            if (palavra.equals("hamekame")) {
+            if (word.equals("hamekame")) {
                 System.out.println("ka");
             } else {
-                String saida = kameHame(palavra);
-                System.out.println(saida);
+                String out = kameHame(word);
+                System.out.println(out);
             }
         }
     }
 
     static String kameHame(String str) {
         StringBuilder str2 = new StringBuilder();
-        int contador = 0;
+        int counter = 0;
         int aux;
 
         // The first position of the output string receives the character 'k';
@@ -34,7 +34,7 @@ public class Main {
         // The number of 'a' characters in this part will determine the number of 'a' characters in the output string;
         while (str.startsWith("a")) {
             str = str.substring(1);
-            contador++;
+            counter++;
         }
 
         while (!str.startsWith("a")) {
@@ -43,7 +43,7 @@ public class Main {
 
         // If the number of 'a' characters in the first part was 1
         // Then the number of 'a' characters in the output string is equal to that in the second part of the input string;
-        if (contador == 1) {
+        if (counter == 1) {
             while (str.startsWith("a")) {
                 str2.append(str.charAt(0));
                 str = str.substring(1);
@@ -51,7 +51,7 @@ public class Main {
         } else {
             // Otherwise, each 'a' in the second part of the input string is worth the number of 'a' in the first part;
             while (str.startsWith("a")) {
-                aux = contador;
+                aux = counter;
                 while (aux-- > 0) {
                     str2.append('a');
                 }
